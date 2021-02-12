@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MyJetWallet.Domain" Version="1.0.7" />
+    <PackageReference Include="MyJetWallet.Domain" Version="1.0.9" />
     <PackageReference Include="MyServiceBus.TcpClient" Version="2.2.14" />
     <PackageReference Include="protobuf-net" Version="3.0.73" />
   </ItemGroup>

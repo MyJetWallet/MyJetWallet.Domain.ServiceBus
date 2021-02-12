@@ -1,9 +1,9 @@
 ﻿using JetBrains.Annotations;
-using MyJetWallet.Domain.MyServiceBus.Serializers;
 using MyJetWallet.Domain.Prices;
+using MyJetWallet.Domain.ServiceBus.Serializers;
 using MyServiceBus.TcpClient;
 
-namespace MyJetWallet.Domain.MyServiceBus.PublisherSubscriber.BidAsks
+namespace MyJetWallet.Domain.ServiceBus.PublisherSubscriber.BidAsks
 {
     [UsedImplicitly]
     public class BidAskMyServiceBusSubscriber : Subscriber<BidAsk>

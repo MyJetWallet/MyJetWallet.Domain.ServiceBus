@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 
-namespace MyJetWallet.Domain.MyServiceBus.Serializers
+namespace MyJetWallet.Domain.ServiceBus.Serializers
 {
     [UsedImplicitly]
     public static class ContractToDomainMapper

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DotNetCoreDecorators;
 using MyServiceBus.TcpClient;
 
-namespace MyJetWallet.Domain.MyServiceBus
+namespace MyJetWallet.Domain.ServiceBus
 {
     public class Subscriber<T> : ISubscriber<T> 
     {

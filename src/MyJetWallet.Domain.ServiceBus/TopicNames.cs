@@ -1,4 +1,4 @@
-﻿namespace MyJetWallet.Domain.MyServiceBus
+﻿namespace MyJetWallet.Domain.ServiceBus
 {
     public static class TopicNames
     {

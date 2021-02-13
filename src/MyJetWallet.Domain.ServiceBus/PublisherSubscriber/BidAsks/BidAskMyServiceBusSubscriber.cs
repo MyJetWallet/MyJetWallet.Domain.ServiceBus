@@ -14,6 +14,5 @@ namespace MyJetWallet.Domain.ServiceBus.PublisherSubscriber.BidAsks
         {
 
         }
-
     }
 }

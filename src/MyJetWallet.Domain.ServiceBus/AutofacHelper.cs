@@ -5,6 +5,7 @@ using MyJetWallet.Domain.Prices;
 using MyJetWallet.Domain.ServiceBus.Models;
 using MyJetWallet.Domain.ServiceBus.PublisherSubscriber.BidAsks;
 using MyJetWallet.Domain.ServiceBus.PublisherSubscriber.Registrations;
+using MyJetWallet.Domain.ServiceBus.PublisherSubscriber.TradeVolumes;
 using MyServiceBus.TcpClient;
 // ReSharper disable UnusedMember.Global
 
@@ -54,6 +55,28 @@ namespace MyJetWallet.Domain.ServiceBus
             builder
                 .RegisterInstance(new BidAskMyServiceBusSubscriber(client, queueName, deleteOnDisconnect))
                 .As<ISubscriber<BidAsk>>()
+                .SingleInstance();
+        }
+
+        /// <summary>
+        /// Register IPublisher for TradeVolume
+        /// </summary>
+        public static void RegisterTradeVolumePublisher(this ContainerBuilder builder, MyServiceBusTcpClient client)
+        {
+            builder
+                .RegisterInstance(new TradeVolumeServiceBusPublisher(client))
+                .As<IPublisher<TradeVolume>>()
+                .SingleInstance();
+        }
+
+        /// <summary>
+        /// Register ISubscriber for BidAsk
+        /// </summary>
+        public static void RegisterTradeVolumeSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, bool deleteOnDisconnect)
+        {
+            builder
+                .RegisterInstance(new TradeVolumeServiceBusSubscriber(client, queueName, deleteOnDisconnect))
+                .As<ISubscriber<TradeVolume>>()
                 .SingleInstance();
         }
     }

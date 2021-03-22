@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using DotNetCoreDecorators;
 using JetBrains.Annotations;
 using MyJetWallet.Domain.Prices;
@@ -6,6 +7,7 @@ using MyJetWallet.Domain.ServiceBus.Models;
 using MyJetWallet.Domain.ServiceBus.PublisherSubscriber.BidAsks;
 using MyJetWallet.Domain.ServiceBus.PublisherSubscriber.Registrations;
 using MyJetWallet.Domain.ServiceBus.PublisherSubscriber.TradeVolumes;
+using MyServiceBus.Abstractions;
 using MyServiceBus.TcpClient;
 // ReSharper disable UnusedMember.Global
 
@@ -28,12 +30,22 @@ namespace MyJetWallet.Domain.ServiceBus
         /// <summary>
         /// Register ISubscriber for ClientRegistrationMessage
         /// </summary>
-        public static void RegisterClientRegistrationSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, bool deleteOnDisconnect)
+        public static void RegisterClientRegistrationSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, TopicQueueType queryType, bool batchSubscribe)
         {
-            builder
-                .RegisterInstance(new ClientRegistrationServiceBusSubscriber(client, queueName, deleteOnDisconnect))
-                .As<ISubscriber<ClientRegistrationMessage>>()
-                .SingleInstance();
+            if (batchSubscribe)
+            {
+                builder
+                    .RegisterInstance(new ClientRegistrationServiceBusSubscriber(client, queueName, queryType, true))
+                    .As<ISubscriber<IReadOnlyList<ClientRegistrationMessage>>>()
+                    .SingleInstance();
+            }
+            else
+            {
+                builder
+                    .RegisterInstance(new ClientRegistrationServiceBusSubscriber(client, queueName, queryType, false))
+                    .As<ISubscriber<ClientRegistrationMessage>>()
+                    .SingleInstance();
+            }
         }
 
         /// <summary>
@@ -50,12 +62,22 @@ namespace MyJetWallet.Domain.ServiceBus
         /// <summary>
         /// Register ISubscriber for BidAsk
         /// </summary>
-        public static void RegisterBidAskSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, bool deleteOnDisconnect)
+        public static void RegisterBidAskSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, TopicQueueType queryType, bool batchSubscribe)
         {
-            builder
-                .RegisterInstance(new BidAskMyServiceBusSubscriber(client, queueName, deleteOnDisconnect))
-                .As<ISubscriber<BidAsk>>()
-                .SingleInstance();
+            if (batchSubscribe)
+            {
+                builder
+                    .RegisterInstance(new BidAskMyServiceBusSubscriber(client, queueName, queryType, true))
+                    .As<ISubscriber<IReadOnlyList<BidAsk>>>()
+                    .SingleInstance();
+            }
+            else
+            {
+                builder
+                    .RegisterInstance(new BidAskMyServiceBusSubscriber(client, queueName, queryType, false))
+                    .As<ISubscriber<IReadOnlyList<BidAsk>>>()
+                    .SingleInstance();
+            }
         }
 
         /// <summary>
@@ -72,12 +94,22 @@ namespace MyJetWallet.Domain.ServiceBus
         /// <summary>
         /// Register ISubscriber for BidAsk
         /// </summary>
-        public static void RegisterTradeVolumeSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, bool deleteOnDisconnect)
+        public static void RegisterTradeVolumeSubscriber(this ContainerBuilder builder, MyServiceBusTcpClient client, string queueName, TopicQueueType queryType, bool batchSubscribe)
         {
-            builder
-                .RegisterInstance(new TradeVolumeServiceBusSubscriber(client, queueName, deleteOnDisconnect))
-                .As<ISubscriber<TradeVolume>>()
-                .SingleInstance();
+            if (batchSubscribe)
+            {
+                builder
+                    .RegisterInstance(new TradeVolumeServiceBusSubscriber(client, queueName, queryType, true))
+                    .As<ISubscriber<IReadOnlyList<TradeVolume>>>()
+                    .SingleInstance();
+            }
+            else
+            {
+                builder
+                    .RegisterInstance(new TradeVolumeServiceBusSubscriber(client, queueName, queryType, false))
+                    .As<ISubscriber<TradeVolume>>()
+                    .SingleInstance();
+            }
         }
     }
 }

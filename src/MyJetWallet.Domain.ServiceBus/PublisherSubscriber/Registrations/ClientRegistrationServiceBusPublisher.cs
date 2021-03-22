@@ -15,7 +15,7 @@ namespace MyJetWallet.Domain.ServiceBus.PublisherSubscriber.Registrations
         public ClientRegistrationServiceBusPublisher(MyServiceBusTcpClient client)
         {
             _client = client;
-            _client.CreateTopicIfNotExists(TopicNames.ClientRegistration, 10000);
+            _client.CreateTopicIfNotExists(TopicNames.ClientRegistration);
         }
 
         public async ValueTask PublishAsync(ClientRegistrationMessage valueToPublish)

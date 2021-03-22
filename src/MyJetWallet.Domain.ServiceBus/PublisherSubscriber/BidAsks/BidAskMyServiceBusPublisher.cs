@@ -15,7 +15,7 @@ namespace MyJetWallet.Domain.ServiceBus.PublisherSubscriber.BidAsks
         public BidAskMyServiceBusPublisher(MyServiceBusTcpClient client)
         {
             _client = client;
-            _client.CreateTopicIfNotExists(TopicNames.BidAsk, 100000);
+            _client.CreateTopicIfNotExists(TopicNames.BidAsk);
         }
 
         public async ValueTask PublishAsync(BidAsk valueToPublish)

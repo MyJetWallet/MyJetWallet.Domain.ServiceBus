@@ -15,7 +15,7 @@ namespace MyJetWallet.Domain.ServiceBus.PublisherSubscriber.TradeVolumes
         public TradeVolumeServiceBusPublisher(MyServiceBusTcpClient client)
         {
             _client = client;
-            _client.CreateTopicIfNotExists(TopicNames.PriceTradeVolume, 100000);
+            _client.CreateTopicIfNotExists(TopicNames.PriceTradeVolume);
         }
 
         public async ValueTask PublishAsync(TradeVolume valueToPublish)

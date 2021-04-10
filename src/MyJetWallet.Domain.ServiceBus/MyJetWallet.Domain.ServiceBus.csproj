@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="DotNetCoreDecorators" Version="1.0.21" />
-    <PackageReference Include="MyJetWallet.Domain" Version="1.0.23" />
+    <PackageReference Include="MyJetWallet.Domain" Version="1.0.30" />
     <PackageReference Include="MyServiceBus.TcpClient" Version="2.4.4" />
     <PackageReference Include="protobuf-net" Version="3.0.101" />
   </ItemGroup>
